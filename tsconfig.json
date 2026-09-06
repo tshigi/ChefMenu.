@@ -16,5 +16,5 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts"
-  ]
+, "src/app/menu.tsx-ViewMenu", "src/app/explore.tsx-AddMenu", "src/app/index.tsx-HomeWelcome"  ]
 }

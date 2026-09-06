@@ -1,180 +1,59 @@
-import { Image } from 'expo-image';
-import { SymbolView } from 'expo-symbols';
-import { Platform, Pressable, ScrollView, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { MenuContext } from './_layout';
+import { useRouter } from 'expo-router';
 
-import { ExternalLink } from '@/components/external-link';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Collapsible } from '@/components/ui/collapsible';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-import { useTheme } from '@/hooks/use-theme';
+export default function AddMenu() {
+  const [dishName, setDishName] = useState('');
+  const [description, setDescription] = useState('');
+  const [course, setCourse] = useState('Main');
+  const [price, setPrice] = useState('');
+  const [errors, setErrors] = useState<any>({});
+  const [success, setSuccess] = useState('');
+  const { addMenuItem } = useContext(MenuContext);
+  const router = useRouter();
 
-export default function TabTwoScreen() {
-  const safeAreaInsets = useSafeAreaInsets();
-  const insets = {
-    ...safeAreaInsets,
-    bottom: safeAreaInsets.bottom + BottomTabInset + Spacing.three,
+  const handleAdd = () => {
+    let e:any = {};
+    if(!dishName.trim()) e.dishName='Required';
+    if(!description.trim() || description.length < 5) e.description='Min 5 chars required';
+    if(!price.trim() || isNaN(Number(price))) e.price='Valid price required';
+    setErrors(e);
+    if(Object.keys(e).length>0){ Alert.alert('Fix errors'); return; }
+    addMenuItem({ dishName, description, course, price: `R${price}` });
+    setSuccess(`✅ "${dishName}" added successfully!`);
+    Alert.alert('Success', `${dishName} added!`, [{text:'View Menu', onPress:()=>router.push('/menu')}]);
+    setDishName(''); setDescription(''); setPrice('');
   };
-  const theme = useTheme();
-
-  const contentPlatformStyle = Platform.select({
-    android: {
-      paddingTop: insets.top,
-      paddingLeft: insets.left,
-      paddingRight: insets.right,
-      paddingBottom: insets.bottom,
-    },
-    web: {
-      paddingTop: Spacing.six,
-      paddingBottom: Spacing.four,
-    },
-  });
 
   return (
-    <ScrollView
-      style={[styles.scrollView, { backgroundColor: theme.background }]}
-      contentInset={insets}
-      contentContainerStyle={[styles.contentContainer, contentPlatformStyle]}>
-      <ThemedView style={styles.container}>
-        <ThemedView style={styles.titleContainer}>
-          <ThemedText type="subtitle">Explore</ThemedText>
-          <ThemedText style={styles.centerText} themeColor="textSecondary">
-            This starter app includes example{'\n'}code to help you get started.
-          </ThemedText>
-
-          <ExternalLink href="https://docs.expo.dev" asChild>
-            <Pressable style={({ pressed }) => pressed && styles.pressed}>
-              <ThemedView type="backgroundElement" style={styles.linkButton}>
-                <ThemedText type="link">Expo documentation</ThemedText>
-                <SymbolView
-                  tintColor={theme.text}
-                  name={{ ios: 'arrow.up.right.square', android: 'link', web: 'link' }}
-                  size={12}
-                />
-              </ThemedView>
-            </Pressable>
-          </ExternalLink>
-        </ThemedView>
-
-        <ThemedView style={styles.sectionsWrapper}>
-          <Collapsible title="File-based routing">
-            <ThemedText type="small">
-              This app has two screens: <ThemedText type="code">src/app/index.tsx</ThemedText> and{' '}
-              <ThemedText type="code">src/app/explore.tsx</ThemedText>
-            </ThemedText>
-            <ThemedText type="small">
-              The layout file in <ThemedText type="code">src/app/_layout.tsx</ThemedText> sets up
-              the tab navigator.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/router/introduction">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Android, iOS, and web support">
-            <ThemedView type="backgroundElement" style={styles.collapsibleContent}>
-              <ThemedText type="small">
-                You can open this project on Android, iOS, and the web. To open the web version,
-                press <ThemedText type="smallBold">w</ThemedText> in the terminal running this
-                project.
-              </ThemedText>
-              <Image
-                source={require('@/assets/images/tutorial-web.png')}
-                style={styles.imageTutorial}
-              />
-            </ThemedView>
-          </Collapsible>
-
-          <Collapsible title="Images">
-            <ThemedText type="small">
-              For static images, you can use the <ThemedText type="code">@2x</ThemedText> and{' '}
-              <ThemedText type="code">@3x</ThemedText> suffixes to provide files for different
-              screen densities.
-            </ThemedText>
-            <Image source={require('@/assets/images/react-logo.png')} style={styles.imageReact} />
-            <ExternalLink href="https://reactnative.dev/docs/images">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Light and dark mode components">
-            <ThemedText type="small">
-              This template has light and dark mode support. The{' '}
-              <ThemedText type="code">useColorScheme()</ThemedText> hook lets you inspect what the
-              user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-            </ThemedText>
-            <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-              <ThemedText type="linkPrimary">Learn more</ThemedText>
-            </ExternalLink>
-          </Collapsible>
-
-          <Collapsible title="Animations">
-            <ThemedText type="small">
-              This template includes an example of an animated component. The{' '}
-              <ThemedText type="code">src/components/ui/collapsible.tsx</ThemedText> component uses
-              the powerful <ThemedText type="code">react-native-reanimated</ThemedText> library to
-              animate opening this hint.
-            </ThemedText>
-          </Collapsible>
-        </ThemedView>
-        {Platform.OS === 'web' && <WebBadge />}
-      </ThemedView>
+    <ScrollView style={styles.container}>
+      <Text style={styles.title}>Add New Dish</Text>
+      {success? <View style={styles.success}><Text style={styles.successText}>{success}</Text></View>:null}
+      <Text style={styles.label}>Dish Name *</Text>
+      <TextInput style={[styles.input, errors.dishName && styles.error]} value={dishName} onChangeText={setDishName} placeholder="e.g. Grilled Hake"/>
+      <Text style={styles.label}>Description *</Text>
+      <TextInput style={[styles.input, styles.area, errors.description && styles.error]} value={description} onChangeText={setDescription} placeholder="Describe" multiline/>
+      <Text style={styles.label}>Course *</Text>
+      <View style={styles.row}>{['Starter','Main','Dessert'].map(c=><TouchableOpacity key={c} style={[styles.cBtn, course===c && styles.cActive]} onPress={()=>setCourse(c)}><Text style={course===c?{color:'#fff'}:{}}>{c}</Text></TouchableOpacity>)}</View>
+      <Text style={styles.label}>Price (R) *</Text>
+      <TextInput style={[styles.input, errors.price && styles.error]} value={price} onChangeText={setPrice} placeholder="100" keyboardType="numeric"/>
+      <TouchableOpacity style={styles.btn} onPress={handleAdd}><Text style={styles.btnText}>Add Menu Item</Text></TouchableOpacity>
     </ScrollView>
   );
 }
-
 const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  contentContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
-  container: {
-    maxWidth: MaxContentWidth,
-    flexGrow: 1,
-  },
-  titleContainer: {
-    gap: Spacing.three,
-    alignItems: 'center',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.six,
-  },
-  centerText: {
-    textAlign: 'center',
-  },
-  pressed: {
-    opacity: 0.7,
-  },
-  linkButton: {
-    flexDirection: 'row',
-    paddingHorizontal: Spacing.four,
-    paddingVertical: Spacing.two,
-    borderRadius: Spacing.five,
-    justifyContent: 'center',
-    gap: Spacing.one,
-    alignItems: 'center',
-  },
-  sectionsWrapper: {
-    gap: Spacing.five,
-    paddingHorizontal: Spacing.four,
-    paddingTop: Spacing.three,
-  },
-  collapsibleContent: {
-    alignItems: 'center',
-  },
-  imageTutorial: {
-    width: '100%',
-    aspectRatio: 296 / 171,
-    borderRadius: Spacing.three,
-    marginTop: Spacing.two,
-  },
-  imageReact: {
-    width: 100,
-    height: 100,
-    alignSelf: 'center',
-  },
+  container: { flex:1, padding:20, backgroundColor:'#fff' },
+  title: { fontSize:24, fontWeight:'bold', textAlign:'center', color:'#1e3a5f', marginVertical:15 },
+  success: { backgroundColor:'#d1fae5', padding:12, borderRadius:8, marginBottom:10 },
+  successText: { color:'#065f46', fontWeight:'bold', textAlign:'center' },
+  label: { fontWeight:'bold', marginTop:10, color:'#1e3a5f' },
+  input: { borderWidth:1, borderColor:'#ccc', borderRadius:8, padding:12, marginTop:5 },
+  area: { height:80, textAlignVertical:'top' },
+  error: { borderColor:'red', borderWidth:2 },
+  row: { flexDirection:'row', marginTop:5 },
+  cBtn: { flex:1, borderWidth:1, borderColor:'#1e3a5f', padding:10, borderRadius:8, marginHorizontal:4, alignItems:'center' },
+  cActive: { backgroundColor:'#1e3a5f' },
+  btn: { backgroundColor:'#1e3a5f', padding:16, borderRadius:12, alignItems:'center', marginTop:20 },
+  btnText: { color:'#fff', fontWeight:'bold' },
 });
