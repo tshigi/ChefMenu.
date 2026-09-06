@@ -8,16 +8,7 @@ The app consust of three screens:
    >Chef image for design
    >Display the total number of dishes in menu
    >Buttons for view and add menu
-
-
-
-
-
-
-
-
-
-
+   
    2. Add Menu Screen (explore.tsx)
       >Input fields for:
       - Dish name
@@ -29,20 +20,6 @@ The app consust of three screens:
       - Dessert
       > Erro handling for all input fields must be filled and displays massage if dish added successfully
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       3. View Menu Screen
          > Display all menu items in cards as follows:
          - Dish name
