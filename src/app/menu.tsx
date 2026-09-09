@@ -1,76 +1,104 @@
-import React, { useContext, useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { MenuContext } from './_layout';
+import React, { useContext } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { MenuContext } from './_layout';
 
-type MenuItem = {
-  id: string;
-  dishName: string;
-  description: string;
-  price: string;
-  course: string;
-};
-
-export default function ViewMenu() {
-  const { menuList } = useContext(MenuContext);
-  const [filter, setFilter] = useState<string>('All');
+export default function Menu() {
   const router = useRouter();
-
-  const filtered: MenuItem[] = filter === 'All' 
-    ? menuList 
-    : menuList.filter((item: MenuItem) => item.course === filter);
+  const { menuList } = useContext(MenuContext);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chef Menu</Text>
-
-      <View style={styles.row}>
-        <TouchableOpacity onPress={() => setFilter('All')} style={styles.btn}>
-          <Text>All</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFilter('Starter')} style={styles.btn}>
-          <Text>Starter</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFilter('Main')} style={styles.btn}>
-          <Text>Main</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => setFilter('Dessert')} style={styles.btn}>
-          <Text>Dessert</Text>
-        </TouchableOpacity>
-      </View>
+      <Text style={styles.title}>
+        Chef Menu List
+      </Text>
 
       <FlatList
-        data={filtered}
+        data={menuList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <Text style={styles.name}>{item.dishName}</Text>
-            <Text>{item.course}</Text>
-            <Text>{item.description}</Text>
-            <Text>{item.price}</Text>
+            <Text style={styles.dishName}>
+              {item.dishName}
+            </Text>
+
+            <Text style={styles.course}>
+              Course: {item.course}
+            </Text>
+
+            <Text style={styles.desc}>
+              {item.description}
+            </Text>
+
+            <Text style={styles.price}>
+              Price: R{item.price}
+            </Text>
           </View>
         )}
       />
 
-      <TouchableOpacity style={styles.blueBtn} onPress={() => router.push('/explore')}>
-        <Text style={styles.white}>Add New Dish + Filter</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.greyBtn} onPress={() => router.push('/')}>
-        <Text style={styles.white}>Back to Home</Text>
+      <TouchableOpacity
+        style={styles.homeButton}
+        onPress={() => router.push('/')}
+      >
+        <Text style={styles.buttonText}>
+          Back to Home
+        </Text>
       </TouchableOpacity>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 15, backgroundColor: 'white' },
-  title: { fontSize: 24, fontWeight: 'bold' },
-  row: { flexDirection: 'row', marginTop: 10, marginBottom: 10 },
-  btn: { padding: 8, backgroundColor: '#eee', marginRight: 8, borderRadius: 5 },
-  card: { backgroundColor: '#f5f5f5', padding: 10, marginBottom: 8, borderRadius: 5 },
-  name: { fontSize: 16, fontWeight: 'bold' },
-  blueBtn: { backgroundColor: 'blue', padding: 15, borderRadius: 5, alignItems: 'center', marginTop: 10 },
-  greyBtn: { backgroundColor: 'gray', padding: 15, borderRadius: 5, alignItems: 'center', marginTop: 8 },
-  white: { color: 'white', fontWeight: 'bold' }
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 15,
+  },
+  card: {
+    backgroundColor: '#f5f5f5',
+    padding: 15,
+    borderRadius: 8,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#ddd',
+  },
+  dishName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  course: {
+    fontSize: 14,
+    color: 'blue',
+    marginTop: 3,
+  },
+  desc: {
+    fontSize: 14,
+    color: 'gray',
+    marginTop: 5,
+  },
+  price: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 8,
+    color: 'green',
+  },
+  homeButton: {
+    backgroundColor: '#1e3a5f',
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
