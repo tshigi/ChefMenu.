@@ -1,51 +1,143 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRouter } from 'expo-router';
+import { MenuContext } from './_layout';
 
 export default function AddMenu() {
   const router = useRouter();
-  const [dishName, setDishName] = useState<string>('');
-  const [description, setDescription] = useState<string>('');
-  const [price, setPrice] = useState<string>('');
-  const [course, setCourse] = useState<string>('Starter');
-  const [errorMsg, setErrorMsg] = useState<string>('');
-  const [successMsg, setSuccessMsg] = useState<string>('');
+  const { addMenuItem } = useContext(MenuContext);
+  const [dishName, setDishName] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [course, setCourse] = useState('Starter');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
-  const handleAdd = (): void => {
-    setErrorMsg(''); setSuccessMsg('');
+  const handleAdd = () => {
+    setErrorMsg('');
+    setSuccessMsg('');
+
     if (dishName.trim() === '' || description.trim() === '' || price.trim() === '') {
-      setErrorMsg('Error: Please fill in all fields'); return;
+      setErrorMsg('Fill all fields');
+      return;
     }
-    setSuccessMsg('Success: ' + dishName + ' (' + course + ') added! Price: R' + price);
-    setDishName(''); setDescription(''); setPrice('');
+
+    addMenuItem({ dishName, description, price, course });
+    setSuccessMsg(dishName + ' added!');
+    setDishName('');
+    setDescription('');
+    setPrice('');
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Add New Dish</Text>
-      {errorMsg !== '' && <Text style={styles.error}>{errorMsg}</Text>}
-      {successMsg !== '' && <Text style={styles.success}>{successMsg}</Text>}
+      <Text style={styles.title}>
+        ADD DISH
+      </Text>
 
-      <Text style={styles.label}>Dish Name</Text>
-      <TextInput style={styles.input} placeholder="Enter dish name" value={dishName} onChangeText={setDishName} />
-      <Text style={styles.label}>Description</Text>
-      <TextInput style={styles.input} placeholder="Enter description" value={description} onChangeText={setDescription} />
-      <Text style={styles.label}>Price</Text>
-      <TextInput style={styles.input} placeholder="Enter price" value={price} onChangeText={setPrice} keyboardType="numeric" />
+      <Text style={styles.subTitle}>
+        CREATE SIGNATURE
+      </Text>
 
-      <Text style={styles.label}>Course</Text>
+      {errorMsg !== '' && (
+        <Text style={styles.error}>
+          {errorMsg}
+        </Text>
+      )}
+
+      {successMsg !== '' && (
+        <Text style={styles.success}>
+          {successMsg}
+        </Text>
+      )}
+
+      <Text style={styles.label}>
+        DISH NAME
+      </Text>
+
+      <TextInput 
+        style={styles.input} 
+        placeholder="e.g. Truffle Pasta" 
+        placeholderTextColor="#555" 
+        value={dishName} 
+        onChangeText={setDishName} 
+      />
+
+      <Text style={styles.label}>
+        DESCRIPTION
+      </Text>
+
+      <TextInput 
+        style={styles.input} 
+        placeholder="Fresh ingredients..." 
+        placeholderTextColor="#555" 
+        value={description} 
+        onChangeText={setDescription} 
+      />
+
+      <Text style={styles.label}>
+        PRICE (R)
+      </Text>
+
+      <TextInput 
+        style={styles.input} 
+        placeholder="120" 
+        placeholderTextColor="#555" 
+        value={price} 
+        onChangeText={setPrice} 
+        keyboardType="numeric" 
+      />
+
+      <Text style={styles.label}>
+        COURSE
+      </Text>
+
       <View style={styles.row}>
-        <TouchableOpacity onPress={() => setCourse('Starter')} style={[styles.courseBtn, course === 'Starter' && styles.active]}><Text style={course === 'Starter' ? styles.activeText : undefined}>Starter</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => setCourse('Main')} style={[styles.courseBtn, course === 'Main' && styles.active]}><Text style={course === 'Main' ? styles.activeText : undefined}>Main</Text></TouchableOpacity>
-        <TouchableOpacity onPress={() => setCourse('Dessert')} style={[styles.courseBtn, course === 'Dessert' && styles.active]}><Text style={course === 'Dessert' ? styles.activeText : undefined}>Dessert</Text></TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => setCourse('Starter')} 
+          style={[styles.courseBtn, course === 'Starter' && styles.active]}
+        >
+          <Text style={course === 'Starter' ? styles.activeText : styles.courseText}>
+            STARTER
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          onPress={() => setCourse('Main')} 
+          style={[styles.courseBtn, course === 'Main' && styles.active]}
+        >
+          <Text style={course === 'Main' ? styles.activeText : styles.courseText}>
+            MAIN
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          onPress={() => setCourse('Dessert')} 
+          style={[styles.courseBtn, course === 'Dessert' && styles.active]}
+        >
+          <Text style={course === 'Dessert' ? styles.activeText : styles.courseText}>
+            DESSERT
+          </Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.bottomRow}>
-        <TouchableOpacity style={styles.addButton} onPress={handleAdd}>
-          <Text style={styles.buttonText}>Add Dish</Text>
+      <View style={styles.footerButtons}>
+        <TouchableOpacity 
+          style={styles.addButton} 
+          onPress={handleAdd}
+        >
+          <Text style={styles.blackText}>
+            ADD
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.push('/')}>
-          <Text style={styles.buttonText}>Back to Menu</Text>
+
+        <TouchableOpacity 
+          style={styles.backButton} 
+          onPress={() => router.push('/')}
+        >
+          <Text style={styles.whiteText}>
+            HOME
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -53,83 +145,119 @@ export default function AddMenu() {
 }
 
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    padding: 20, 
-    backgroundColor: 'white' 
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: '#0a0a0a',
   },
-  title: { 
-    fontSize: 22, 
-    fontWeight: 'bold', 
-    textAlign: 'center', 
-    marginBottom: 15 
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: 'white',
   },
-  label: { 
-    fontSize: 16, 
-    marginTop: 10 
+  subTitle: {
+    fontSize: 10,
+    textAlign: 'center',
+    color: '#D4AF37',
+    marginBottom: 20,
   },
-  input: { 
-    borderWidth: 1, 
-    borderColor: 'gray', 
-    borderRadius: 5, 
-    padding: 10, 
-    marginTop: 5 
+  label: {
+    fontSize: 10,
+    marginTop: 14,
+    fontWeight: 'bold',
+    color: '#D4AF37',
   },
-  row: { 
-    flexDirection: 'row', 
-    marginTop: 5 
+  input: {
+    borderWidth: 1,
+    borderColor: '#222',
+    borderRadius: 12,
+    padding: 14,
+    marginTop: 6,
+    backgroundColor: '#151515',
+    color: 'white',
+    height: 46,
   },
-  courseBtn: { 
-    padding: 10, 
-    borderWidth: 1, 
-    borderColor: 'gray', 
-    borderRadius: 5, 
-    marginRight: 10 
+  row: {
+    flexDirection: 'row',
+    marginTop: 8,
   },
-  active: { 
-    backgroundColor: 'blue' 
+  courseBtn: {
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: '#333',
+    borderRadius: 20,
+    marginRight: 10,
+    backgroundColor: '#151515',
+    height: 36,
+    justifyContent: 'center',
   },
-  activeText: { 
-    color: 'white', 
-    fontWeight: 'bold' as const 
+  courseText: {
+    fontSize: 10,
+    color: '#888',
   },
-  error: { 
-    backgroundColor: '#ffdddd', 
-    color: 'red', 
-    padding: 10, 
-    borderRadius: 5, 
-    marginBottom: 10, 
-    fontWeight: 'bold' as const 
+  active: {
+    backgroundColor: '#D4AF37',
+    borderColor: '#D4AF37',
   },
-  success: { 
-    backgroundColor: '#ddffdd', 
-    color: 'green', 
-    padding: 10, 
-    borderRadius: 5, 
-    marginBottom: 10, 
-    fontWeight: 'bold' as const 
+  activeText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 10,
   },
-  bottomRow: { 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    marginTop: 20 
+  error: {
+    backgroundColor: '#2a0a0a',
+    color: '#ff5555',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: '#ff000033',
   },
-  addButton: { 
-    backgroundColor: 'blue', 
-    padding: 15, 
-    borderRadius: 5, 
-    width: '48%', 
-    alignItems: 'center' 
+  success: {
+    backgroundColor: '#0a2a0a',
+    color: '#D4AF37',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+    borderWidth: 1,
+    borderColor: '#D4AF3733',
   },
-  backButton: { 
-    backgroundColor: 'gray', 
-    padding: 15, 
-    borderRadius: 5, 
-    width: '48%', 
-    alignItems: 'center' 
+  footerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginTop: 30,
   },
-  buttonText: { 
-    color: 'white', 
-    fontWeight: 'bold' as const 
-  }
+  addButton: {
+    backgroundColor: '#D4AF37',
+    borderRadius: 20,
+    width: 120,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 15,
+  },
+  backButton: {
+    backgroundColor: '#151515',
+    borderRadius: 20,
+    width: 120,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#333',
+  },
+  blackText: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 11,
+  },
+  whiteText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 11,
+  },
 });

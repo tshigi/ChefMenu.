@@ -20,21 +20,31 @@ export default function Layout() {
     setMenuList([...menuList, { id: Date.now().toString(), ...item }]);
   };
 
+  const updateMenuItem = (id: string, updatedItem: any) => {
+    setMenuList(menuList.map(item => item.id === id ? { ...item, ...updatedItem } : item));
+  };
+
+  const deleteMenuItem = (id: string) => {
+    setMenuList(menuList.filter(item => item.id !== id));
+  };
+
   return (
-    <MenuContext.Provider value={{ menuList, addMenuItem }}>
+    <MenuContext.Provider value={{ menuList, addMenuItem, updateMenuItem, deleteMenuItem }}>
       <Stack
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#1e3a5f',
+            backgroundColor: '#000000',
           },
-          headerTintColor: '#fff',
-          headerBackVisible: false,
-          headerLeft: () => null,
+          headerTintColor: '#D4AF37',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}
       >
-        <Stack.Screen name="index" options={{ title: 'Home' }} />
-        <Stack.Screen name="menu" options={{ title: 'View Menu' }} />
-        <Stack.Screen name="explore" options={{ title: 'Add Menu Item' }} />
+        <Stack.Screen name="index" options={{ title: 'CHRISTOFFEL' }} />
+        <Stack.Screen name="menu" options={{ title: 'MENU' }} />
+        <Stack.Screen name="explore" options={{ title: 'ADD DISH' }} />
+        <Stack.Screen name="stats" options={{ title: 'STATS' }} />
       </Stack>
     </MenuContext.Provider>
   );
