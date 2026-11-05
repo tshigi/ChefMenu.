@@ -36,7 +36,7 @@ GitHub: https://github.com/tshigi/ChefMenu
 - Consistent look and feel #1A1A1A + gold #E8C88A
 
 ## Video Demonstration
-YouTube Link: [PASTE YOUR UNLISTED LINK HERE - 5-8 mins showing add, edit, delete, search, filter, stats]
+YouTube Link: 
 
 ## How to Run
 npm install
