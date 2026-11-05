@@ -4,23 +4,23 @@ GitHub: https://github.com/tshigi/ChefMenu
 
 ## Change Log 
 
-### 1. Manage Menu Items 
+### . Manage Menu Items 
 - Implemented Edit existing menu item - taps edit, pre-fills form
 - Implemented Update menu item information - saves immediately
 - Implemented Delete menu item - removes and updates UI instantly
 
-### 2. Search and Filter (20 Marks)
+### . Search and Filter 
 - Search for menu item by name - TextInput with live search
 - Filter by course (Starter, Main Course, Dessert)
 - Clear search/filter to display all items again
 
-### 3. Display Menu Statistics 
+### . Display Menu Statistics 
 - Total number of menu items
 - Average price of all items
 - Number of items per course (Starter/Main/Dessert)
 - Displayed in clear, easy-to-read cards on stats.tsx
 
-### 4. Enhance Application (20 Marks) - REFACTORING
+### . Enhance Application 
 - Improved layout: Fixed background to #1A1A1A in _layout.tsx
 - Reusable components: outlineButton { width:200, height:48, borderRadius:30, borderColor:#E8C88A }
 - Reusable functions: calculateTotal(), calculateAverage(), filterByCourse()
@@ -29,7 +29,7 @@ GitHub: https://github.com/tshigi/ChefMenu
 - Improved validation: Checks empty fields, price validation, user feedback with Alerts
 - Consistent user-friendly experience across index.tsx, menu.tsx, explore.tsx, stats.tsx
 
-### 5. User Experience 
+### . User Experience 
 - Easy to use, clear navigation via Expo Router
 - Meaningful success/error messages
 - Validates input appropriately
