@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from 'react';
 import { 
   View, 
@@ -8,7 +7,8 @@ import {
   TouchableOpacity, 
   TextInput, 
   Alert, 
-  Modal 
+  Modal,
+  StatusBar
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { MenuContext } from './_layout';
@@ -53,9 +53,12 @@ export default function Menu() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+
       <Text style={styles.title}>
         OUR MENU
       </Text>
+
       <Text style={styles.counter}>
         {filteredList.length} DISHES
       </Text>
@@ -63,7 +66,7 @@ export default function Menu() {
       <TextInput 
         style={styles.searchInput} 
         placeholder="Search..." 
-        placeholderTextColor="#666" 
+        placeholderTextColor="#9E9E9E" 
         value={search} 
         onChangeText={setSearch} 
       />
@@ -71,36 +74,72 @@ export default function Menu() {
       <View style={styles.row}>
         <TouchableOpacity 
           onPress={() => setFilter('All')} 
-          style={[styles.filterBtn, filter === 'All' && styles.activeFilter]}
+          style={[
+            styles.filterBtn, 
+            filter === 'All' && styles.activeFilter
+          ]}
         >
-          <Text style={filter === 'All' ? styles.activeText : styles.filterText}>
+          <Text 
+            style={
+              filter === 'All' 
+                ? styles.activeText 
+                : styles.filterText
+            }
+          >
             ALL
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
           onPress={() => setFilter('Starter')} 
-          style={[styles.filterBtn, filter === 'Starter' && styles.activeFilter]}
+          style={[
+            styles.filterBtn, 
+            filter === 'Starter' && styles.activeFilter
+          ]}
         >
-          <Text style={filter === 'Starter' ? styles.activeText : styles.filterText}>
+          <Text 
+            style={
+              filter === 'Starter' 
+                ? styles.activeText 
+                : styles.filterText
+            }
+          >
             STARTER
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
           onPress={() => setFilter('Main')} 
-          style={[styles.filterBtn, filter === 'Main' && styles.activeFilter]}
+          style={[
+            styles.filterBtn, 
+            filter === 'Main' && styles.activeFilter
+          ]}
         >
-          <Text style={filter === 'Main' ? styles.activeText : styles.filterText}>
+          <Text 
+            style={
+              filter === 'Main' 
+                ? styles.activeText 
+                : styles.filterText
+            }
+          >
             MAIN
           </Text>
         </TouchableOpacity>
 
         <TouchableOpacity 
           onPress={() => setFilter('Dessert')} 
-          style={[styles.filterBtn, filter === 'Dessert' && styles.activeFilter]}
+          style={[
+            styles.filterBtn, 
+            filter === 'Dessert' && styles.activeFilter
+          ]}
         >
-          <Text style={filter === 'Dessert' ? styles.activeText : styles.filterText}>
+          <Text 
+            style={
+              filter === 'Dessert' 
+                ? styles.activeText 
+                : styles.filterText
+            }
+          >
             DESSERT
           </Text>
         </TouchableOpacity>
@@ -114,15 +153,19 @@ export default function Menu() {
             <Text style={styles.dishName}>
               {item.dishName}
             </Text>
+
             <Text style={styles.course}>
               {item.course}
             </Text>
+
             <Text style={styles.desc}>
               {item.description}
             </Text>
+
             <Text style={styles.price}>
               R{item.price}
             </Text>
+
             <View style={styles.manageRow}>
               <TouchableOpacity 
                 style={styles.editButton} 
@@ -137,7 +180,7 @@ export default function Menu() {
                 style={styles.deleteButton} 
                 onPress={() => deleteMenuItem(item.id)}
               >
-                <Text style={styles.smallButtonText}>
+                <Text style={styles.smallButtonTextBlack}>
                   DELETE
                 </Text>
               </TouchableOpacity>
@@ -158,7 +201,7 @@ export default function Menu() {
               value={editName} 
               onChangeText={setEditName} 
               placeholder="Name" 
-              placeholderTextColor="#666" 
+              placeholderTextColor="#9E9E9E" 
             />
 
             <TextInput 
@@ -166,7 +209,7 @@ export default function Menu() {
               value={editDesc} 
               onChangeText={setEditDesc} 
               placeholder="Desc" 
-              placeholderTextColor="#666" 
+              placeholderTextColor="#9E9E9E" 
             />
 
             <TextInput 
@@ -175,10 +218,10 @@ export default function Menu() {
               onChangeText={setEditPrice} 
               placeholder="Price" 
               keyboardType="numeric" 
-              placeholderTextColor="#666" 
+              placeholderTextColor="#9E9E9E" 
             />
 
-            <View style={styles.bottomRow}>
+            <View style={styles.buttonContainer}>
               <TouchableOpacity 
                 style={styles.saveButton} 
                 onPress={saveEdit}
@@ -201,7 +244,7 @@ export default function Menu() {
         </View>
       </Modal>
 
-      <View style={styles.footerButtons}>
+      <View style={styles.buttonContainer}>
         <TouchableOpacity 
           style={styles.homeButton} 
           onPress={() => router.push('/')}
@@ -228,28 +271,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#0a0a0a',
+    backgroundColor: '#1A1A1A',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white',
+    color: '#FFFFFF',
   },
   counter: {
     fontSize: 10,
     textAlign: 'center',
-    color: '#D4AF37',
+    color: '#E8C88A',
     marginBottom: 15,
+    letterSpacing: 2,
   },
   searchInput: {
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#3A3A3A',
     borderRadius: 30,
     padding: 14,
     marginBottom: 10,
-    backgroundColor: '#151515',
-    color: 'white',
+    backgroundColor: '#252525',
+    color: '#FFFFFF',
     height: 46,
   },
   row: {
@@ -260,55 +304,56 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 8,
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#3A3A3A',
     borderRadius: 20,
     marginRight: 8,
-    backgroundColor: '#151515',
+    backgroundColor: '#252525',
     height: 34,
     justifyContent: 'center',
   },
   activeFilter: {
-    backgroundColor: '#D4AF37',
-    borderColor: '#D4AF37',
+    backgroundColor: '#E8C88A',
+    borderColor: '#E8C88A',
   },
   filterText: {
     fontSize: 10,
-    color: '#888',
+    color: '#9E9E9E',
   },
   activeText: {
-    color: 'black',
+    color: '#1A1A1A',
     fontWeight: 'bold',
     fontSize: 10,
   },
   card: {
-    backgroundColor: '#151515',
+    backgroundColor: '#252525',
     padding: 16,
     borderRadius: 15,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#222',
+    borderColor: '#3A3A3A',
   },
   dishName: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#FFFFFF',
   },
   course: {
     fontSize: 10,
-    color: '#D4AF37',
+    color: '#E8C88A',
     marginTop: 3,
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   desc: {
     fontSize: 12,
-    color: '#888',
+    color: '#EAEAEA',
     marginTop: 5,
   },
   price: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 8,
-    color: '#D4AF37',
+    color: '#E8C88A',
   },
   manageRow: {
     flexDirection: 'row',
@@ -316,18 +361,18 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   editButton: {
-    backgroundColor: '#222',
+    backgroundColor: '#252525',
     borderRadius: 20,
     width: 85,
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#D4AF37',
+    borderColor: '#E8C88A',
     marginRight: 10,
   },
   deleteButton: {
-    backgroundColor: '#D4AF37',
+    backgroundColor: '#E8C88A',
     borderRadius: 20,
     width: 85,
     height: 32,
@@ -337,7 +382,12 @@ const styles = StyleSheet.create({
   smallButtonText: {
     fontSize: 10,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#FFFFFF',
+  },
+  smallButtonTextBlack: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#1A1A1A',
   },
   modalOverlay: {
     flex: 1,
@@ -346,95 +396,94 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   modalBox: {
-    backgroundColor: '#151515',
+    backgroundColor: '#252525',
     padding: 20,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: '#D4AF37',
+    borderColor: '#E8C88A',
   },
   modalTitle: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
     marginBottom: 15,
-    color: 'white',
+    color: '#FFFFFF',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#3A3A3A',
     borderRadius: 12,
     padding: 12,
     marginTop: 10,
-    backgroundColor: '#0a0a0a',
-    color: 'white',
+    backgroundColor: '#1A1A1A',
+    color: '#FFFFFF',
     height: 44,
   },
-  bottomRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
     marginTop: 15,
   },
   saveButton: {
-    backgroundColor: '#D4AF37',
-    borderRadius: 20,
-    width: 110,
-    height: 40,
+    backgroundColor: '#E8C88A',
+    borderRadius: 30,
+    width: 200,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 10,
   },
   cancelButton: {
-    backgroundColor: '#222',
-    borderRadius: 20,
-    width: 110,
-    height: 40,
+    backgroundColor: 'transparent',
+    borderRadius: 30,
+    width: 200,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#E8C88A',
+    marginTop: 12,
   },
   btnTextBlack: {
-    color: 'black',
+    color: '#1A1A1A',
     fontWeight: 'bold',
-    fontSize: 11,
+    fontSize: 12,
+    letterSpacing: 1,
   },
   btnTextWhite: {
-    color: 'white',
+    color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 11,
-  },
-  footerButtons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 15,
+    fontSize: 12,
+    letterSpacing: 1,
   },
   homeButton: {
-    backgroundColor: '#151515',
-    borderRadius: 20,
-    width: 120,
-    height: 40,
+    backgroundColor: 'transparent',
+    borderRadius: 30,
+    width: 200,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#333',
-    marginRight: 15,
+    borderColor: '#E8C88A',
   },
   goldHomeButton: {
-    backgroundColor: '#D4AF37',
-    borderRadius: 20,
-    width: 120,
-    height: 40,
+    backgroundColor: '#E8C88A',
+    borderRadius: 30,
+    width: 200,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
+    marginTop: 12,
   },
   footerText: {
-    color: 'white',
+    color: '#E8C88A',
     fontWeight: 'bold',
-    fontSize: 11,
+    fontSize: 12,
+    letterSpacing: 1,
   },
   footerTextBlack: {
-    color: 'black',
+    color: '#1A1A1A',
     fontWeight: 'bold',
-    fontSize: 11,
+    fontSize: 12,
+    letterSpacing: 1,
   },
 });

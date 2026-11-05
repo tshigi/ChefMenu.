@@ -1,5 +1,12 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  TouchableOpacity,
+  StatusBar,
+  ScrollView
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { MenuContext } from './_layout';
 
@@ -14,116 +21,131 @@ export default function Stats() {
   const desserts = menuList.filter((item: any) => item.course === 'Dessert').length;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-        STATISTICS
-      </Text>
+    <ScrollView style={styles.scroll}>
+      <View style={styles.container}>
+        <StatusBar barStyle="light-content" />
 
-      <Text style={styles.subTitle}>
-        RESTAURANT ANALYTICS
-      </Text>
+        <Text style={styles.title}>
+          STATISTICS
+        </Text>
 
-      <View style={styles.card}>
-        <Text style={styles.label}>
-          Total Dishes
+        <Text style={styles.subTitle}>
+          RESTAURANT ANALYTICS
         </Text>
-        <Text style={styles.value}>
-          {totalItems}
-        </Text>
-      </View>
 
-      <View style={styles.cardGold}>
-        <Text style={styles.labelGold}>
-          Average Price
-        </Text>
-        <Text style={styles.valueBlack}>
-          R{averagePrice}
-        </Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.label}>
-          Total Menu Value
-        </Text>
-        <Text style={styles.goldValue}>
-          R{totalPrice}
-        </Text>
-      </View>
-
-      <Text style={styles.subTitle2}>
-        BY COURSE
-      </Text>
-
-      <View style={styles.row}>
-        <View style={styles.smallCard}>
-          <Text style={styles.smallLabel}>
-            STARTER
+        <View style={styles.card}>
+          <Text style={styles.label}>
+            Total Dishes
           </Text>
-          <Text style={styles.bigValue}>
-            {starters}
+
+          <Text style={styles.value}>
+            {totalItems}
           </Text>
         </View>
 
-        <View style={styles.smallCardGold}>
-          <Text style={styles.smallLabelBlack}>
-            MAIN
+        <View style={styles.cardGold}>
+          <Text style={styles.labelGold}>
+            Average Price
           </Text>
-          <Text style={styles.bigValueBlack}>
-            {mains}
+
+          <Text style={styles.valueBlack}>
+            R{averagePrice}
           </Text>
         </View>
 
-        <View style={styles.smallCard}>
-          <Text style={styles.smallLabel}>
-            DESSERT
+        <View style={styles.card}>
+          <Text style={styles.label}>
+            Total Menu Value
           </Text>
-          <Text style={styles.bigValue}>
-            {desserts}
+
+          <Text style={styles.goldValue}>
+            R{totalPrice}
           </Text>
         </View>
-      </View>
 
-      <View style={styles.footerButtons}>
-        <TouchableOpacity 
-          style={styles.homeButton} 
-          onPress={() => router.push('/menu')}
-        >
-          <Text style={styles.footerText}>
-            MENU
-          </Text>
-        </TouchableOpacity>
+        <Text style={styles.subTitle2}>
+          BY COURSE
+        </Text>
 
-        <TouchableOpacity 
-          style={styles.outlineButton} 
-          onPress={() => router.push('/')}
-        >
-          <Text style={styles.footerTextGold}>
-            HOME
-          </Text>
-        </TouchableOpacity>
+        <View style={styles.row}>
+          <View style={styles.smallCard}>
+            <Text style={styles.smallLabel}>
+              STARTER
+            </Text>
+
+            <Text style={styles.bigValue}>
+              {starters}
+            </Text>
+          </View>
+
+          <View style={styles.smallCardGold}>
+            <Text style={styles.smallLabelBlack}>
+              MAIN
+            </Text>
+
+            <Text style={styles.bigValueBlack}>
+              {mains}
+            </Text>
+          </View>
+
+          <View style={styles.smallCard}>
+            <Text style={styles.smallLabel}>
+              DESSERT
+            </Text>
+
+            <Text style={styles.bigValue}>
+              {desserts}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity 
+            style={styles.homeButton} 
+            onPress={() => router.push('/menu')}
+          >
+            <Text style={styles.footerText}>
+              MENU
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={styles.outlineButton} 
+            onPress={() => router.push('/')}
+          >
+            <Text style={styles.footerTextGold}>
+              HOME
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+  scroll: {
+    flex: 1,
+    backgroundColor: '#1A1A1A',
+  },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#0a0a0a',
+    backgroundColor: '#1A1A1A',
     alignItems: 'center',
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white',
+    color: '#FFFFFF',
   },
   subTitle: {
     fontSize: 10,
     textAlign: 'center',
-    color: '#D4AF37',
+    color: '#E8C88A',
     marginBottom: 20,
+    letterSpacing: 2,
   },
   subTitle2: {
     fontSize: 10,
@@ -131,15 +153,16 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10,
     textAlign: 'center',
-    color: '#D4AF37',
+    color: '#E8C88A',
+    letterSpacing: 2,
   },
   card: {
-    backgroundColor: '#151515',
+    backgroundColor: '#252525',
     padding: 16,
     borderRadius: 15,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#222',
+    borderColor: '#3A3A3A',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -147,7 +170,7 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   cardGold: {
-    backgroundColor: '#D4AF37',
+    backgroundColor: '#E8C88A',
     padding: 16,
     borderRadius: 15,
     marginBottom: 10,
@@ -159,27 +182,27 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#888',
+    color: '#9E9E9E',
   },
   labelGold: {
     fontSize: 12,
-    color: 'black',
+    color: '#1A1A1A',
     fontWeight: 'bold',
   },
   value: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#FFFFFF',
   },
   valueBlack: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'black',
+    color: '#1A1A1A',
   },
   goldValue: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#D4AF37',
+    color: '#E8C88A',
   },
   row: {
     flexDirection: 'row',
@@ -187,7 +210,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   smallCard: {
-    backgroundColor: '#151515',
+    backgroundColor: '#252525',
     padding: 14,
     borderRadius: 15,
     width: 100,
@@ -195,11 +218,11 @@ const styles = StyleSheet.create({
     height: 70,
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#222',
+    borderColor: '#3A3A3A',
     marginRight: 10,
   },
   smallCardGold: {
-    backgroundColor: '#D4AF37',
+    backgroundColor: '#E8C88A',
     padding: 14,
     borderRadius: 15,
     width: 100,
@@ -210,60 +233,64 @@ const styles = StyleSheet.create({
   },
   smallLabel: {
     fontSize: 9,
-    color: '#D4AF37',
+    color: '#E8C88A',
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   smallLabelBlack: {
     fontSize: 9,
-    color: 'black',
+    color: '#1A1A1A',
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   bigValue: {
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: 5,
-    color: 'white',
+    color: '#FFFFFF',
   },
   bigValueBlack: {
     fontSize: 22,
     fontWeight: 'bold',
     marginTop: 5,
-    color: 'black',
+    color: '#1A1A1A',
   },
-  footerButtons: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
     marginTop: 30,
   },
   homeButton: {
-    backgroundColor: '#151515',
-    borderRadius: 20,
-    width: 120,
-    height: 42,
+    backgroundColor: '#252525',
+    borderRadius: 30,
+    width: 200,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#333',
-    marginRight: 15,
+    borderColor: '#3A3A3A',
   },
   outlineButton: {
     backgroundColor: 'transparent',
-    borderRadius: 20,
-    width: 120,
-    height: 42,
+    borderRadius: 30,
+    width: 200,
+    height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#D4AF37',
+    borderColor: '#E8C88A',
+    marginTop: 12,
   },
   footerText: {
-    color: 'white',
+    color: '#FFFFFF',
     fontWeight: 'bold',
-    fontSize: 11,
+    fontSize: 12,
+    letterSpacing: 1,
   },
   footerTextGold: {
-    color: '#D4AF37',
+    color: '#E8C88A',
     fontWeight: 'bold',
-    fontSize: 11,
+    fontSize: 12,
+    letterSpacing: 1,
   },
 });

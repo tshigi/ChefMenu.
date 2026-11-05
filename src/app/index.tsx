@@ -1,5 +1,11 @@
 import React, { useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  TouchableOpacity,
+  StatusBar
+} from 'react-native';
 import { useRouter } from 'expo-router';
 import { MenuContext } from './_layout';
 
@@ -9,12 +15,16 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <StatusBar barStyle="light-content" />
+
       <Text style={styles.title}>
         CHRISTOFFEL'S
       </Text>
+
       <Text style={styles.line}>
         ━━━━━
       </Text>
+
       <Text style={styles.subTitle}>
         LUXURY DINING
       </Text>
@@ -23,14 +33,18 @@ export default function App() {
         <Text style={styles.welcome}>
           Welcome, Chef
         </Text>
+
         <Text style={styles.welcomeGold}>
           Christoffel!
         </Text>
+
         <View style={styles.divider} />
+
         <View style={styles.countBox}>
           <Text style={styles.count}>
             {menuList.length}
           </Text>
+
           <Text style={styles.countLabel}>
             Signature Dishes
           </Text>
@@ -74,51 +88,52 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 25,
-    backgroundColor: '#0a0a0a',
+    backgroundColor: '#1A1A1A',
     alignItems: 'center',
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: 'white',
+    color: '#FFFFFF',
   },
   line: {
-    color: '#D4AF37',
+    color: '#E8C88A',
     textAlign: 'center',
     marginTop: 5,
   },
   subTitle: {
     fontSize: 11,
     textAlign: 'center',
-    color: '#D4AF37',
+    color: '#E8C88A',
     marginBottom: 35,
     fontWeight: 'bold',
+    letterSpacing: 3,
   },
   welcomeBox: {
-    backgroundColor: '#151515',
+    backgroundColor: '#252525',
     padding: 25,
     borderRadius: 20,
     marginBottom: 35,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#D4AF37',
+    borderColor: '#C5A880',
     width: '90%',
   },
   welcome: {
     fontSize: 18,
-    color: 'white',
+    color: '#FFFFFF',
     textAlign: 'center',
   },
   welcomeGold: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#D4AF37',
+    color: '#E8C88A',
     textAlign: 'center',
   },
   divider: {
     height: 1,
-    backgroundColor: '#D4AF37',
+    backgroundColor: '#E8C88A',
     width: 60,
     marginTop: 15,
     marginBottom: 15,
@@ -129,11 +144,11 @@ const styles = StyleSheet.create({
   count: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: 'white',
+    color: '#FFFFFF',
   },
   countLabel: {
     fontSize: 10,
-    color: '#888',
+    color: '#EAEAEA',
     marginTop: 3,
   },
   buttonContainer: {
@@ -141,7 +156,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   goldButton: {
-    backgroundColor: '#D4AF37',
+    backgroundColor: '#E8C88A',
     borderRadius: 30,
     width: 200,
     height: 48,
@@ -150,14 +165,14 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   blackButton: {
-    backgroundColor: '#1a1a1a',
+    backgroundColor: '#252525',
     borderRadius: 30,
     width: 200,
     height: 48,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#333',
+    borderColor: '#3A3A3A',
     marginTop: 12,
   },
   outlineButton: {
@@ -168,22 +183,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#D4AF37',
+    borderColor: '#E8C88A',
     marginTop: 12,
   },
   blackText: {
-    color: 'black',
+    color: '#1A1A1A',
     fontWeight: 'bold',
     fontSize: 12,
+    letterSpacing: 1,
   },
   goldText: {
-    color: '#D4AF37',
+    color: '#E8C88A',
     fontWeight: 'bold',
     fontSize: 12,
+    letterSpacing: 1,
   },
   whiteText: {
-    color: 'white',
+    color: '#FFFFFF',
     fontWeight: 'bold',
     fontSize: 12,
+    letterSpacing: 1,
   },
 });
