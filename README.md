@@ -48,7 +48,7 @@ GitHub: https://github.com/tshigi/ChefMenu
 - 
 
 ## Video Demonstration
-YouTube Link: 
+YouTube Link: https://youtube.com/watch?v=jzOwJex2_44&si=Sz4KfxdxrwX99Hcg
 
 ## How to Run
 npm install
