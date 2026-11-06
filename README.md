@@ -8,17 +8,22 @@ GitHub: https://github.com/tshigi/ChefMenu
 - Implemented Edit existing menu item - taps edit, pre-fills form
 - Implemented Update menu item information - saves immediately
 - Implemented Delete menu item - removes and updates UI instantly
+- <img width="1600" height="900" alt="mast5" src="https://github.com/user-attachments/assets/f62fdadd-76d9-49fd-9f6f-ae134bc6420e" />
+
 
 ### . Search and Filter 
 - Search for menu item by name - TextInput with live search
 - Filter by course (Starter, Main Course, Dessert)
 - Clear search/filter to display all items again
+- <img width="1600" height="897" alt="mast4" src="https://github.com/user-attachments/assets/9963c38b-cf45-4bb0-8944-b33a93e08127" />
+
 
 ### . Display Menu Statistics 
 - Total number of menu items
 - Average price of all items
 - Number of items per course (Starter/Main/Dessert)
 - Displayed in clear, easy-to-read cards on stats.tsx
+- 
 
 ### . Enhance Application 
 - Improved layout: Fixed background to #1A1A1A in _layout.tsx
