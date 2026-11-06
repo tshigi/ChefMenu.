@@ -43,6 +43,8 @@ GitHub: https://github.com/tshigi/ChefMenu
 - Meaningful success/error messages
 - Validates input appropriately
 - Consistent look and feel #1A1A1A + gold #E8C88A
+- <img width="1600" height="900" alt="mast7" src="https://github.com/user-attachments/assets/e94ef6d5-8acf-4dc8-84da-2bbf819acaa9" />
+
 - 
 
 ## Video Demonstration
