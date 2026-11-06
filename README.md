@@ -23,6 +23,8 @@ GitHub: https://github.com/tshigi/ChefMenu
 - Average price of all items
 - Number of items per course (Starter/Main/Dessert)
 - Displayed in clear, easy-to-read cards on stats.tsx
+- <img width="1600" height="900" alt="mast6" src="https://github.com/user-attachments/assets/0457331f-8a14-465a-a6bf-57dab9a50c44" />
+
 - 
 
 ### . Enhance Application 
@@ -33,12 +35,15 @@ GitHub: https://github.com/tshigi/ChefMenu
 - Meaningful names: menuItems, filteredItems, handleEdit, handleDelete
 - Improved validation: Checks empty fields, price validation, user feedback with Alerts
 - Consistent user-friendly experience across index.tsx, menu.tsx, explore.tsx, stats.tsx
+- <img width="1600" height="897" alt="mast1" src="https://github.com/user-attachments/assets/79af9b65-07f3-41a0-9205-a05e7d04b11d" />
+
 
 ### . User Experience 
 - Easy to use, clear navigation via Expo Router
 - Meaningful success/error messages
 - Validates input appropriately
 - Consistent look and feel #1A1A1A + gold #E8C88A
+- 
 
 ## Video Demonstration
 YouTube Link: 
